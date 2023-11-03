@@ -59,9 +59,39 @@ print(squared_values)
 ```
 
 # 2)
-
+I will make all the NAs disappear now. Watch closely.
 ```{r}
 
+library(dslabs)
+
+data("na_example")
+
+cat("Original Dataset (na_example) as a Data Frame:\n")
+print(as.data.frame(na_example))
+
+na_example_no_na <- na_example
+na_example_no_na[is.na(na_example_no_na)] <- 0
+
+cat("\nUpdated Dataset (na_example_no_na, NAs replaced with 0) as a Data Frame:\n")
+print(as.data.frame(na_example_no_na))
 
 
 ```
+
+# 3)
+Creating basic text-based games in R is a fun way to learn the basics of game development. Here's a summary of how to make a very simple text-based game in R:
+
+1. Define the Game Concept:
+Start by defining the concept of your text-based game. For a basic game, you might create a simple "Guess the Number" game where the player has to guess a random number.
+
+2. Generate a Random Number:
+Use R's sample() function to generate a random number. This number will be the one that the player needs to guess.
+
+3. Implement Game Logic:
+Write code that handles the game's logic. Create a loop that allows the player to enter guesses, compare their guesses to the random number, and provide feedback (e.g., "Too high" or "Too low"). Continue the loop until the player guesses the correct number.
+
+4. User Input and Output:
+Use R's readline() function to get input from the player, and print() or cat() to display messages and feedback. You can also create a simple text-based interface to make the game more interactive.
+
+5. Win/Lose Conditions:
+Define win and lose conditions. In the "Guess the Number" game, the player wins if they guess the correct number and loses after a certain number of attempts.
