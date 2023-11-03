@@ -3,28 +3,14 @@ title: "About Me"
 sidebar: false 
 ---
 
-# Education
 
--   B.S., Industrial Engineering, Hacettepe University, Turkey, 20xx - ongoing.
 
-# Work Experience
+# What really matters:
+-Game designer \
+-Chess master\
+-And I will try my best\
 
-## Employements
 
-1.  Firm xxx, position xx, year xxx
+# If you really wonder the boring stuff:
 
-2.  Firm yyy, position yyy, year yyy
-
-## Internships
-
-1.  Firm aaa, position xx, year xxx
-
-2.  Firm bbb, position yyy, year yyy
-
-# Projects
-
-# Competencies
-
-R, Quarto, Git, Python
-
-# Hobbies
+Here's the CV\

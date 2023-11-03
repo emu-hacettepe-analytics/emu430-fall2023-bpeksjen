@@ -3,5 +3,5 @@ title: "A deeper understanding of everything"
 sidebar: false 
 ---
 
-A deeper understanding of everything
+Coming soon..
 

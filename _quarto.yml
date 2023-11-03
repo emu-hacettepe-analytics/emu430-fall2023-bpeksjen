@@ -38,9 +38,6 @@ website:
         - assignments/assignment-2.qmd  
   page-navigation: true
   back-to-top-navigation: true
-  page-footer:
-    center: "Hacettepe IE - EMU 430 - Fall 2023" 
-    border: true
 format:
   html:
     theme: 
