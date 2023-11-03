@@ -14,3 +14,4 @@ sidebar: false
 # If you really wonder the boring stuff:
 
 Here's the CV\
+[click here](resume.pdf)
