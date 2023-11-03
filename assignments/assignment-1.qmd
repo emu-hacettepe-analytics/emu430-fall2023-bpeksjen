@@ -2,18 +2,66 @@
 title: "Assignment 1"
 ---
 
-# Assignment 1
+# Let me cook now
+# 1)
 
+Python and R has some differences you know.
+
+R has a unique syntax with a focus on data manipulation and analysis. It uses a vectors for operations on data frames and matrices.    
 ```{r}
-1 + 1
+my_vector <- c(1, 2, 3, 4, 5)
+mean_value <- mean(my_vector)
+print(mean_value)
 ```
 
-```{r}
-1 + 1
+Python has a more general-purpose syntax with a clear, easy-to-read structure. It relies on libraries like NumPy and Pandas for data manipulation.
+
+```{python}
+import numpy as np
+my_list = [1, 2, 3, 4, 5]
+mean_value = np.mean(my_list)
+print(mean_value)
 ```
 
-My first assignment has two parts.
+R offers unique data structures like data frames, which are well-suited for statistical analysis. It also uses factors for categorical data.
 
-## (a)
+```{r}
+data_frame <- data.frame(
+  Name = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 22)
+)
+```
 
-## (b)
+ Python relies on a more extensive set of built-in data structures like lists, dictionaries, and tuples. Libraries like Pandas provide data frames.
+
+```{python}
+import pandas as pd
+data_frame = pd.DataFrame({
+  'Name': ["Alice", "Bob", "Charlie"],
+  'Age': [25, 30, 22]
+})
+```
+
+ In R, list comprehensions are not a built-in feature of the language. Instead, R typically uses lapply() or sapply() functions to perform operations on lists.
+
+```{r}
+numbers <- c(1, 2, 3, 4, 5)
+squared_values <- lapply(numbers, function(x) x^2)
+print(squared_values)
+```
+
+Python supports list comprehensions, which allow you to create lists using a concise and expressive syntax.
+
+```{python}
+numbers = [1, 2, 3, 4, 5]
+squared_values = [x**2 for x in numbers]
+print(squared_values)
+```
+
+# 2)
+
+```{r}
+
+
+
+```
