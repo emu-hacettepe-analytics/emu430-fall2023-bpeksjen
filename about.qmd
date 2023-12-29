@@ -6,12 +6,10 @@ sidebar: false
 
 
 # What really matters:
--Game designer \
--Chess master\
--And I will try my best\
 
 
-# If you really wonder the boring stuff:
+
+# If you really wonder:
 
 Here's the CV\
 [click here](resume.pdf)

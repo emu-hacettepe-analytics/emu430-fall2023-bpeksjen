@@ -1,9 +1,176 @@
 ---
 title: "Assignment 2"
 ---
-
-# Assignment 2
+### Libraries:
 
 ```{r}
-1 + 1
+#| code-fold: true
+#| code-summary: "Show the code"
+library(tidyverse)
+library(rvest)
+library(knitr)
+
+```
+
+### URLs and Function for scraping and the Dataframe:
+
+My dataframe from IMDB. (only showing 15)
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+convert_time_updated <- function(time_string) {
+  time_components <- strsplit(time_string, ":")[[1]]
+  
+
+  if (length(time_components) == 2) {
+  
+    hours <- as.numeric(time_components[1])
+    minutes <- as.numeric(time_components[2])
+    
+
+    if (!any(is.na(c(hours, minutes)))) {
+
+      total_minutes <- hours * 60 + minutes
+      return(total_minutes)
+    }
+  }
+  
+  return(NA)
+}
+
+scrape_movie_info <- function(url) {
+  page <- read_html(url)
+
+  title <- page %>% html_elements(".ipc-title__text") %>% html_text() %>% 
+    tail(-1) %>% head(-1) %>% str_split(" ", n = 2) %>% map_chr(2)
+
+  year <- page %>% html_elements(".dli-title-metadata-item:nth-child(1)") %>% 
+    html_text() %>% as.numeric()
+
+  duration <- page %>% html_elements(".dli-title-metadata-item:nth-child(2)") %>% 
+    html_text() %>% map_dbl(convert_time_updated)
+
+  rating <- page %>% html_elements(".ratingGroup--imdb-rating") %>% 
+    html_text() %>% str_extract("\\d+\\.\\d+") %>% as.numeric()
+
+  votes <- page %>% html_elements(".kRnqtn") %>% 
+    html_text() %>% gsub("\\D", "", .) %>% as.numeric()
+
+  data.frame(Title = title, Year = year, Duration = duration, Rating = rating, Votes = votes)
+}
+
+
+url1 <- "https://m.imdb.com/search/title/?title_type=feature&release_date=2010-01-01,2023-12-31&num_votes=2500,&country_of_origin=TR&count=250"
+url2 <- "https://m.imdb.com/search/title/?title_type=feature&release_date=,2009-12-31&num_votes=2500,&country_of_origin=TR&count=250"
+
+
+
+movies1 <- scrape_movie_info(url1)
+movies2 <- scrape_movie_info(url2)
+
+
+movies <- rbind(movies1, movies2)
+
+
+kable(head(movies, 15), caption = "IMDB Turkish Movies")
+
+
+
+```
+
+### Top and Bottom 5:
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+movies <- movies %>% arrange(desc(Rating))
+
+
+top_5_movies <- head(movies, 5)
+bottom_5_movies <- tail(movies, 5)
+
+
+(kable(top_5_movies, caption = "Top 5 Movies based on User Ratings"))
+(kable(bottom_5_movies, caption = "Bottom 5 Movies based on User Ratings"))
+
+```
+
+
+### Visualizations:
+
+Turkish movies are dying over years. Somebody help.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+movies$Year <- as.factor(movies$Year)
+
+
+rating_averages <- movies %>%
+  group_by(Year) %>%
+  summarise(Avg_Rating = mean(Rating),
+            Num_Movies = n())
+
+
+ggplot(rating_averages, aes(x = Year, y = Avg_Rating, size = Num_Movies)) +
+  geom_point() +
+  labs(title = "Average Ratings of Turkish Movies Over the Years",
+       x = "Year",
+       y = "Average Rating") +
+  theme_minimal()
+
+
+ggplot(rating_averages, aes(x = Year, y = Num_Movies)) +
+  geom_point() +
+  labs(title = "Number of Turkish Movies Over the Years",
+       x = "Year",
+       y = "Number of Movies") +
+  theme_minimal()
+
+
+ggplot(movies, aes(x = Year, y = Rating)) +
+  geom_boxplot() +
+  labs(title = "Box Plots of Ratings for Turkish Movies Over the Years",
+       x = "Year",
+       y = "Rating") +
+  theme_minimal()
+
+```
+
+
+### IMDB Top 100 Visualizations:
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+url <- "https://m.imdb.com/search/title/?title_type=feature&num_votes=2500,&groups=top_1000&country_of_origin=TR&count=250"
+
+
+movies <- scrape_movie_info(url)
+
+
+movies$Year <- as.factor(movies$Year)
+
+
+rating_averages <- movies %>%
+  group_by(Year) %>%
+  summarise(Avg_Rating = mean(Rating),
+            Num_Movies = n())
+
+
+print(ggplot(rating_averages, aes(x = Year, y = Avg_Rating, size = Num_Movies)) +
+  geom_point() +
+  labs(title = "Average Ratings of Turkish Movies Over the Years",
+       x = "Year",
+       y = "Average Rating") +
+  theme_minimal())
+
+
+
+ggplot(movies, aes(x = Year, y = Rating)) +
+  geom_boxplot() +
+  labs(title = "Box Plots of Ratings for Turkish Movies Over the Years",
+       x = "Year",
+       y = "Rating") +
+  theme_minimal()
+
 ```
